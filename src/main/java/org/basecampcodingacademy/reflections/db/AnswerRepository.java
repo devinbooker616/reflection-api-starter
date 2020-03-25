@@ -30,7 +30,7 @@ public class AnswerRepository {
         );
     }
 
-    public List<Answer> find(Answer answer) {
+    public List<Answer> findAllForResponse(Answer answer) {
         return jdbc.query("SELECT id, responseId, questionId, content FROM answers WHERE responseId = ?", this::mapper, answer.responseId);
     }
 
@@ -40,8 +40,8 @@ public class AnswerRepository {
                 this::mapper, answer.content, answer.id);
     }
 
-    public List<Answer> one(Integer id) {
-        return (List<Answer>) jdbc.query("SELECT FROM answers WHERE id = ? RETURNING id, responseId, questionId", this::mapper, id);
+    public Answer one(Integer id) {
+        return jdbc.queryForObject("SELECT * FROM answers WHERE id = ?", this::mapper, id);
     }
 
     private Answer mapper(ResultSet resultSet, int i) throws SQLException {

@@ -16,7 +16,7 @@ public class AnswerController {
     @GetMapping("/responses/{responseId}/answers")
     public List<Answer> index(Answer answer, @PathVariable Integer responseId) {
         answer.responseId = responseId;
-        return (List<Answer>) answers.find(answer);
+        return (List<Answer>) answers.findAllForResponse(answer);
     }
 
     @PostMapping("/responses/{responseId}/answers")
@@ -33,8 +33,8 @@ public class AnswerController {
     }
 
     @GetMapping("/answers/{id}")
-    public List<Answer> one(Answer answer, @PathVariable Integer id) {
+    public Answer one(Answer answer, @PathVariable Integer id) {
         answer.id = id;
-        return (List<Answer>) answers.find(answer);
+        return answers.one(id);
     }
 }
