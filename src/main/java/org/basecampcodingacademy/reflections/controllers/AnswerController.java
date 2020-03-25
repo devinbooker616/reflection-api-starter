@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//  @RequestMapping(...) was taken out in substitute for @PostMapping(...)
 public class AnswerController {
     @Autowired
     public AnswerRepository answers;
@@ -33,8 +32,9 @@ public class AnswerController {
         return answers.update(answer);
     }
 
-    @GetMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        answers.delete(id);
+    @GetMapping("/answers/{id}")
+    public List<Answer> one(Answer answer, @PathVariable Integer id) {
+        answer.id = id;
+        return (List<Answer>) answers.find(answer);
     }
 }

@@ -40,8 +40,8 @@ public class AnswerRepository {
                 this::mapper, answer.content, answer.id);
     }
 
-    public void delete(Integer id) {
-        jdbc.query("SELECT FROM answers WHERE id = ? RETURNING id, responseId, questionId", this::mapper, id);
+    public List<Answer> one(Integer id) {
+        return (List<Answer>) jdbc.query("SELECT FROM answers WHERE id = ? RETURNING id, responseId, questionId", this::mapper, id);
     }
 
     private Answer mapper(ResultSet resultSet, int i) throws SQLException {
