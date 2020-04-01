@@ -31,6 +31,9 @@ public class ResponseRepository {
         );
     }
 
+    public List<Response> getResponses(Response response) {
+        return jdbc.query("SELECT id, reflectionId, userUsername, answers FROM responses WHERE reflectionId = ?", this::mapper, response.reflectionId);
+    }
     public Response find() {
         try {
             return jdbc.queryForObject("SELECT id, reflectionId, userUsername FROM responses WHERE reflectionId = ? LIMIT 1", this::mapper);

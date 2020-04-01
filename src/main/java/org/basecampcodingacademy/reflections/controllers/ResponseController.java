@@ -24,8 +24,9 @@ public class ResponseController {
     public ReflectionRepository reflections;
 
     @GetMapping
-    public List<Response> index() {
-        return responses.all();
+    public List<Response> index(Response response, @PathVariable Integer reflectionId) {
+        response.reflectionId = reflectionId;
+        return responses.getResponses(response);
     }
 
     @PostMapping

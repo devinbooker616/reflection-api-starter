@@ -14,9 +14,11 @@ public class QuestionController {
     @Autowired
     public QuestionRepository questions;
 
+
     @GetMapping
-    public List<Question> index() {
-        return questions.all();
+    public List<Question> index(Question question, @PathVariable Integer reflectionId) {
+        question.reflectionId = reflectionId;
+        return questions.forReflection(reflectionId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
